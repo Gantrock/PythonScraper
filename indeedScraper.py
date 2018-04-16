@@ -14,4 +14,13 @@ page = requests.get(URL);
 #Specifying the format for the parser
 soup = BeautifulSoup(page.text, "html.parser")
 
-print(soup.prettify())
+#Extracts job titles from the html
+def extract_job_title_from_result(soup):
+  jobs = []
+  for div in soup.find_all(name="div", attrs={"class":"row"}):
+      for a in div.find_all(name="a", attrs= {"data-tn-element":"jobTitle"}):
+        jobs.append(a["title"])
+  return(jobs)
+      
+#print(soup.prettify())
+extract_job_title_from_result(soup)
